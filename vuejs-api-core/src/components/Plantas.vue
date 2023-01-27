@@ -8,7 +8,7 @@
           <th>Nome</th>
           <th>Preço</th>
           <th>Descrição</th>
-          <th></th>
+          <th>Açoes</th>
         </tr>
       </thead>
     </table>
@@ -21,7 +21,22 @@
           <td>{{ planta.nome }} </td>
           <td>{{ planta.preco }},00</td>
           <td>{{ planta.descricao }}</td>
-          <td></td>
+          <td> 
+            <router-link :to="getPlantaUrl(planta.id)">
+            <button class="btnEdit">
+              <span>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"></path></svg> 
+                Edit
+              </span>
+            </button>
+          </router-link>
+            <button class="btnDelete" @click="deletePlantas">
+              <span>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"></path></svg> 
+                Delete
+              </span>
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -44,7 +59,7 @@
    methods: {
     async getPlantas() {
         axios
-         .get(`https://localhost:44332/api/Plantas/${this.planta.id}/`)
+         .get(`https://localhost:44332/api/Plantas/`)
          .then((res) => {
            this.plantas = res.data;
          })
@@ -52,7 +67,19 @@
            console.log(error);
          });
    },
-   
+   async deletePlantas() {
+        axios
+         .delete(`https://localhost:44332/api/Plantas/${this.planta.id}/`)
+         .then((res) => {
+           this.planta = res.data;
+         })
+         .catch((error) => {
+           console.log(error);
+         });
+   },
+   getPlantaUrl(id) {
+      return `/edit/${id}`;
+    },
   }
 }
 
@@ -84,8 +111,8 @@ td{
   padding: 15px;
   text-align: left;
   vertical-align:middle;
-  font-weight: 300;
-  font-size: 12px;
+  font-weight: 500;
+  font-size: 15px;
   color: #fff;
   border-bottom: solid 1px rgba(255,255,255,0.1);
 }
@@ -133,6 +160,50 @@ section{
 } 
 ::-webkit-scrollbar-thumb {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+}
+.btnEdit {
+ border: 1px solid #24b4fb;
+ background-color: #24b4fb;
+ border-radius: 0.3em;
+ padding: 0.3em 0.8em 0.3em 0.6em;
+ transition: all ease-in-out 0.2s;
+ font-size: 16px;
+ cursor: pointer;
+ margin-left: 10px;
+}
+
+.btnEdit span {
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ color: #fff;
+ font-weight: 600;
+}
+
+.btnEdit:hover {
+ background-color: #0071e2;
+}
+.btnDelete {
+ border: 1px solid #ff4242af;
+ background-color: #ff4242af;
+ border-radius: 0.3em;
+ padding: 0.3em 0.8em 0.3em 0.6em;
+ transition: all ease-in-out 0.2s;
+ font-size: 16px;
+ cursor: pointer;
+ margin-left: 10px;
+}
+
+.btnDelete span {
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ color: #fff;
+ font-weight: 600;
+}
+.btnDelete:hover {
+  border: none;
+ background-color: #ff0000af;
 }
 
 
