@@ -59,7 +59,7 @@
    methods: {
     async getPlantas() {
         axios
-         .get(`https://localhost:44332/api/Plantas/`)
+         .get(`https://localhost:44372/api/Plantas`)
          .then((res) => {
            this.plantas = res.data;
          })
@@ -69,9 +69,11 @@
    },
    async deletePlantas() {
         axios
-         .delete(`https://localhost:44332/api/Plantas/${this.planta.id}/`)
+        .delete(`https://localhost:7219/api/Plantas/${this.planta.id}/`,{
+          headers: { "Content-Type": "multipart/form-data" }
+		 })
          .then((res) => {
-           this.planta = res.data;
+          this.plantas = res.data;
          })
          .catch((error) => {
            console.log(error);

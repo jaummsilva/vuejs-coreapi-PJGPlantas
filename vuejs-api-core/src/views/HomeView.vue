@@ -26,7 +26,6 @@ export default {
   components: {Plantas},
   data() {
     return {
-      planta: {},
       plantas: [],
     };  
   },
@@ -36,7 +35,7 @@ export default {
   methods: {
     async getPlantas() {
         axios
-         .get(`https://localhost:44332/api/Plantas/`)
+         .get(`https://localhost:7219/api/Plantas`)
          .then((res) => {
            this.plantas = res.data;
          })

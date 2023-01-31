@@ -31,7 +31,7 @@ export default {
   methods: {
     async patchPlantas() {
         axios
-         .patch(`https://localhost:44332/api/Plantas/${this.$route.params.id}/`)
+         .patch(`https://localhost:7219/api/Plantas${this.$route.params.id}/`)
          .then((res) => {
            this.planta = res.data;
          })
@@ -40,7 +40,7 @@ export default {
          });
    },
    async getPlanta(id) {
-      const res = await axios.get(`https://localhost:44332/api/Plantas/${id}/`);
+      const res = await axios.get(`https://localhost:7219/api/Plantas${id}/`);
       this.planta = res;
     },
    async created() {

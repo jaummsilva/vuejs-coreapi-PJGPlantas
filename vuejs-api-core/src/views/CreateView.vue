@@ -14,7 +14,7 @@
 				 <label>Description</label>
 				 <input placeholder="Description" v-model="planta.descricao">
 			</div>
-			<input type="submit" value='Register' @click.prevent="postPlantas">
+			<input type="submit" value='Register' @click="postPlantas">
 	  </form>
     </body>
  </template>
@@ -25,16 +25,22 @@ export default {
   name: 'App',
   data() {
     return {
-      planta: {},
+      planta: {
+		nome : "",
+		preco : "",
+		descricao: "",
+	  },
       plantas: [],
     };  
   },
   methods: {
     async postPlantas() {
         axios
-         .post(`https://localhost:44332/api/Plantas/`)
+         .post(`https://localhost:7219/api/Plantas`, this.planta, {
+			headers: {'Content-Type': 'application/json'}
+		 })
          .then((res) => {
-           this.plantas = res.data;
+           this.planta = res.data;
          })
          .catch((error) => {
            console.log(error);
