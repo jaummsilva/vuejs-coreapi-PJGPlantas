@@ -14,7 +14,7 @@
 				 <label>Description</label>
 				 <input placeholder="Description" v-model="planta.descricao">
 			</div>
-			<input type="submit" value='Register' @click.prevent="patchPlantas">
+			<input type="submit" value='Register' @click="patchPlantas">
 	  </form>
     </body>
  </template>
@@ -25,27 +25,31 @@ export default {
   name: 'App',
   data() {
     return {
-      planta: {},
+	  planta: {},
+	  plantas:[]
     };  
   },
   methods: {
     async patchPlantas() {
         axios
-         .patch(`https://localhost:7219/api/Plantas${this.$route.params.id}/`)
+        .put(
+          `https://localhost:7219/api/Plantas/${this.planta.id}/`,
+          this.plantas,
+		 {headers: {'Content-Type': 'application/json'}})
          .then((res) => {
-           this.planta = res.data;
+           this.plantas = res.data;
          })
          .catch((error) => {
            console.log(error);
          });
    },
-   async getPlanta(id) {
-      const res = await axios.get(`https://localhost:7219/api/Plantas${id}/`);
+	async getPlanta(id) {
+      const res = await axios.get(`https://localhost:7219/api/Plantas/${id}/`);
       this.planta = res;
     },
-   async created() {
-    await this.getPlanta(this.$route.params.id);
-  },
+    async created() {
+    	await this.getPlanta(this.$route.params.id);
+  	},
   }
 }
 </script>

@@ -53,14 +53,11 @@
        plantas: [],
      };
    },
-   created() {
-     this.getPlantas();
-   },
    methods: {
     async getPlantas() {
         axios
          .get(`https://localhost:44372/api/Plantas`)
-         .then((res) => {
+        .then((res) => {
            this.plantas = res.data;
          })
          .catch((error) => {
@@ -78,6 +75,7 @@
          .catch((error) => {
            console.log(error);
          });
+         this.getPlantas()
    },
    getPlantaUrl(id) {
       return `/edit/${id}`;
