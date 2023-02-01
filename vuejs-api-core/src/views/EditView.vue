@@ -14,7 +14,9 @@
 				 <label>Description</label>
 				 <input placeholder="Description" v-model="planta.descricao">
 			</div>
-			<input type="submit" value='Register' @click="patchPlantas">
+			<div class="form-group">
+				<input type="submit" value='Register' @click="putPlantas">
+			</div>
 	  </form>
     </body>
  </template>
@@ -26,23 +28,24 @@ export default {
   data() {
     return {
 	  planta: {},
-	  plantas:[]
     };  
   },
   methods: {
-    async patchPlantas() {
+    async putPlantas() {
+		this.planta.id = this.$route.params.id;
         axios
         .put(
-          `https://localhost:7219/api/Plantas/${this.planta.id}/`,
-          this.plantas,
+          `https://localhost:7219/api/Plantas/${this.planta.id}`,
+          this.planta,
 		 {headers: {'Content-Type': 'application/json'}})
          .then((res) => {
-           this.plantas = res.data;
+           this.planta = res.data;
          })
          .catch((error) => {
            console.log(error);
          });
    },
+   
 	async getPlanta(id) {
       const res = await axios.get(`https://localhost:7219/api/Plantas/${id}/`);
       this.planta = res;
@@ -61,41 +64,15 @@ export default {
 	box-sizing: border-box;
 }
 
-:root {
-	--brandColor:#008b8b;
-	--brandColorDark:#057272;
-}
 
-[v-cloak] {
-	opacity: 0;
-}
 
 body {
 	padding: 0;
-	margin: 100px;
+	margin-top: 3%;
 	font-family: 'PT Sans', sans-serif;
-	background:#e0e0e0;
+	background: linear-gradient(90deg, #3F2B96 0%, #61729b 100%);
 }
 
-#app {
-	border-top:.5em solid var(--brandColor);
-	max-width:800px;
-	margin: 0 auto;
-	position:absolute;
-	top:50%;
-	left:50%;
-	width:96%;
-	transform:translate(-50%, -50%);
-	padding: 2em 3em 1em;
-	background:white;
-	overflow: hidden;
-	box-shadow: 0 10px 6px -6px rgba(0,0,0,.2);
-	animation: enterFromBottom .7s .3s ease-out both;
-	
-	@media screen and (max-width:500px){
-		padding: 2em 1em 1em;
-	}
-}
 
 .actions button {
 		all:unset;
@@ -128,13 +105,13 @@ form h2, header h2 {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-	justify-content:left;
+	justify-content:center;
 	padding:8px;
 }
 .form-group	label {
-		flex:1;
-		text-align: right;
+		text-align: center;
 		margin-right: 2em;
+		color: rgb(255, 255, 255);
 	}
 	
 	input {
@@ -143,7 +120,7 @@ form h2, header h2 {
 		background:whitesmoke;
 		font-family:inherit;
 		padding:.4em;
-		flex:1.5;
+		width: 400px;
 	}
 	
 	input.invalid {
@@ -165,13 +142,13 @@ form
 	
 	input[type=submit] {
 		display: block;
-		margin: 2em 0 2em 25em;
-		padding: .6em 1em;
 		font-size: inherit;
 		cursor: pointer;
-		background-color: #057272;
-		color:rgb(255, 255, 255);
+		background-color: #ffffff;
+		color:rgb(0, 0, 0);
 		border:none;
+		height: 50px;
+		width: 100px;
 	}
 	
 	input[type=submit]:disabled {
@@ -180,7 +157,7 @@ form
 	}
 	
 	input[type=submit]:hover {
-		background: var(--brandColorDark);
+		background-color: #9b9b9b;
 	}
 	
 

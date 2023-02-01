@@ -1,5 +1,5 @@
 <template>
-  <body class="bodyHome">
+  <body>
   <div class="contentTable">
     <h1>Plantas</h1>
     <router-link to="/create">
@@ -11,7 +11,7 @@
     </button>
     </router-link>
   </div>
-  <div>
+  <div class="contentPlanta">
     <Plantas 
     v-for="planta in plantas" :key="planta.id" :planta="planta" />
   </div>
@@ -47,12 +47,13 @@ export default {
 }
 </script>
 
-<style >
+<style scoped>
 
 .contentTable {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  margin-bottom: 20px;
 }
 
 .btnCreate {
@@ -91,8 +92,7 @@ h1{
 }
 
 body{
-  background: linear-gradient(to right, #69706d, #656f70);
+  background: linear-gradient(90deg, #3F2B96 0%, #61729b 100%);
   font-family: 'Roboto', sans-serif;
-  
 }
 </style>
