@@ -71,11 +71,12 @@
 		 })
          .then((res) => {
           this.plantas = res.data;
+          alert("Planta removida com sucesso!");
+          this.getPlantas();
          })
          .catch((error) => {
-           console.log(error);
+           alert(error);
          });
-         this.getPlantas()
    },
    getPlantaUrl(id) {
       return `/edit/${id}`;

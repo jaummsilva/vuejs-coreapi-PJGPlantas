@@ -40,6 +40,8 @@ export default {
 		 {headers: {'Content-Type': 'application/json'}})
          .then((res) => {
            this.planta = res.data;
+		   alert("Planta editada com sucesso");
+		   this.$router.push('/');
          })
          .catch((error) => {
            console.log(error);

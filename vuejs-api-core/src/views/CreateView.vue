@@ -47,6 +47,8 @@ export default {
 		 })
          .then((res) => {
            this.planta = res.data;
+		   alert("Planta criada com sucesso");
+		   this.$router.push('/');
          })
          .catch((error) => {
            console.log(error);
